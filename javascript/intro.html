@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Javascript - </title>
+
+		<meta name="description" content="">
+		<meta name="author" content="Nhu Nguyen">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/league.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="../dist/override.css">
+	</head>
+	<body>
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-markdown>
+          <textarea data-template>
+            ## Javascript
+            ### - console.log
+            ### - Comments
+
+            ---
+            ## What is Javascript?
+
+            <p class="fragment">JavaScript is a programming language that allows you to implement complex features on web pages.</p>
+            <p class="fragment">- Update content (e.g. infinite scrolling)</p>
+            <p class="fragment">- Interact with users (e.g. click a button to display extra infomation)</p>
+            ---
+            ## What make up a webpage?
+            - HTML - content
+            - CSS - look
+            - Javascript - interaction
+
+            ---
+            ## console.log
+
+            ```javascript
+              console.log('Hello, World!');
+            ```
+
+            ---
+            ## Comments
+
+            ```javascript
+            // short comments
+            console.log('Hello World!'); // inline short comments
+
+            /*
+            Multilines comments
+            This is another line
+            */
+            ```
+            ---
+            ## Comments
+            Is this valid?
+
+            ```javascript
+            // You can make long comments
+            // with multiple lines here
+            ```
+            <p class="fragment">Yes</p>
+
+            ---
+            ## Comments
+            Is this valid?
+
+            ```javascript
+            console.log('Hello World!'); /* inline comments */
+            ```
+            <p class="fragment">Yes</p>
+
+          </textarea>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/zoom/zoom.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/search/search.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

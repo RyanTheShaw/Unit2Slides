@@ -1,0 +1,15 @@
+.reveal code {
+  background-color: #272822;
+  color: #FFF;
+  padding-right: 7px;
+  padding-left: 7px;
+}
+
+.reveal code.hljs {
+  background-color: #272822;
+}
+
+.small_text {
+  font-size: 13px;
+  margin: 0;
+}

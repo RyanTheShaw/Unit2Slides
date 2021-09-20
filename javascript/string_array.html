@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Javascript - String & Array</title>
+
+		<meta name="description" content="">
+		<meta name="author" content="Nhu Nguyen">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/league.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="../css/override.css">
+
+	</head>
+	<body>
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-markdown>
+          <textarea data-template>
+            ## Javascript
+            ### - String
+            ### - Array
+
+            ---
+            ## What is a string?
+
+            <p class="fragment">
+              A string is a collection of characters.
+            </p>
+
+            ---
+            ## String
+
+            Creating a string
+
+            ```javascript
+            const month1 = 'January'; // single quote
+
+            const month2 = "February"; // double quote
+
+            const month3 = `March`; // back tick (only in the latest JS)
+
+            const letter = "a"; // single character is still a string
+            const empty = ""; // no character but is still a string
+            ```
+            ---
+            ## Strings
+            Using quotes inside a string
+
+            ```javascript
+            // Use " for string when you need '
+            "Don't eat that!";
+
+            // Use ' for when you need "
+            'Hey! "Eat your vegetables!"';
+
+            // or use escape character with \
+            'Don\'t eat that!';
+            "Hey! \"Eat your vegetables!\"";
+            ```
+            ---
+            ## String concatenation
+
+            Combine multiple strings together.
+
+            ```javascript
+            const day = "Thursday"
+
+            const phrase1 = "Today is " + day + ".";
+
+            // Use ` when you want to insert the value inside the string
+            const phrase2 = `Today is ${day}.`;
+
+            // use the method concat
+            const phrase3 = "Today is ".concat(day); // Today is Thursday
+            ```
+
+            ---
+            ## String - wrapping
+
+            Wrap a string with `\`
+
+            ```javascript
+            let longString = "This is a very long string which needs \
+            to wrap across multiple lines because \
+            otherwise my code is unreadable."
+            ```
+
+            Use ` if you want to keep the line break.
+
+            ```javascript
+            let longString = `This is a very long string which needs
+            to wrap across multiple lines because
+            otherwise my code is unreadable.`
+            ```
+            ---
+            ## String
+
+            String can be a primitive or an object.
+
+            Primitive string are any string created using quotes.
+
+            ```javascript
+            const month1 = 'January'; // single quote
+            console.log(month1); // "string"
+
+            const month2 = "February"; // double quote
+            console.log(month2); // "string"
+
+            const month3 = `March`; // back tick (only in the latest JS)
+            console.log(month3); // "string"
+            ```
+
+            ---
+            ## String - Object
+
+            An object is a collection of properties and actions.
+              - properties/fields/data
+              - methods/functions/actions
+
+            ```javascript
+            const month = new String('May');
+            console.log(typeof month); // "object"
+            ```
+
+            - JavaScript converts the string literal in the String object.
+            - Use string literal by default.
+            ---
+            ## String - .length
+
+            `.length` - the number of character in a String
+
+            ```
+            "apple".length; // 5
+            "ice".length; // 3
+            ```
+
+            Is `.length` a property or a method?
+            <p class="fragment">
+              Property. It has no ().
+            </p>
+
+            ---
+            ## String - []
+            ![apple is red](../img/apple.png)
+
+            `[]` gets the character of a string
+
+            ```javascript
+            const phrase = "apple is red";
+
+            const firstCharacter = phrase[0]; // "a"
+
+            const lastCharacter1 = phrase[11]; // "d"
+            const lastCharacter2 = phrase[phrase.length - 1]; // "d"
+
+            const outOfBound = phrase[12]; // undefined
+            ```
+
+
+            ---
+            ## String - Operations
+
+            `.charAt()` - similar to []
+
+            ```javascript
+            const phrase = "apple is red";
+
+            const firstCharacter = phrase.charAt(0); // "a"
+
+            const lastCharacter1 = phrase.charAt(11); // "d"
+            const lastCharacter2 = phrase.charAt(phrase.length - 1); // "d"
+
+            const outOfBound = phrase.charAt(12); // ""
+            const outOfBound2 = phrase.charAt(-1); // ""
+
+            ```
+
+            ---
+            ## String operations
+
+            ```javascript
+            "app" + "le"; // "apple"
+            "app".concat("le"); // "apple"
+
+            "apple".includes("le"); // true
+            "apple".includes("orange"); //false
+            ```
+
+            [String Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
+
+            ---
+            ## String operations
+
+            ```javascript
+            "apple".replace("p", "b"); // "abple"
+            "apple".replaceAll("p", "b"); // "abble"
+
+            "Apple".toLowerCase(); // "apple"
+            "apple".toUpperCase(); // "APPLE"
+            ```
+            [String Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
+
+            ---
+            ## String operations
+
+            ```javascript
+            "    apple    ".trim(); // "apple"
+            "    apple    ".trimStart(); // "apple    "
+            "    apple    ".trimEnd(); // "    apple"
+            ```
+
+            [String Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
+            ---
+            ## String operations
+            ![apple is red](../img/apple.png)
+            ```javascript
+            "apple is red".endsWith("red"); // true
+            "apple is red".startsWith("is"); // false
+
+            "apple is red".split(" "); // ["apple", "is", "red"]
+            "apple is red".substring(6, 8); // "is"
+            "apple is red".slice(6, 8); // "is"
+
+            ```
+
+            [String Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
+
+            ---
+            ## String - substring vs slice
+            <img src="../img/apple.png" alt="apple is red" width="400px" />
+
+            ```javascript
+            "apple is red".substring(6, 8); // "is"
+            "apple is red".slice(6, 8); // "is"
+            "apple is red".substring(6); // "is red"
+            "apple is red".slice(6); // "is red"
+            ```
+
+            [String Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
+
+            ---
+            ## String - substring vs slice
+            <img src="../img/apple.png" alt="apple is red" width="400px" />
+
+            ```javascript
+            // if the end is less than start,
+            // then it changes the start and end
+            "apple is red".substring(9, 0); // "apple is "
+
+            // slice will return an empty string
+            "apple is red".slice(9, 0); // ""
+
+            // substring thinks negative number is 0
+            "apple is red".substring(9, -1); // "apple is "
+
+            //slice thinks it's the last character minus the value
+            "apple is red".slice(9, -1); // "re"
+            ```
+
+            [String Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
+
+            ---
+            ## String - null vs empty string
+
+            - Empty string `""` is a string with no character.
+            - null is no value
+
+            ```javascript
+            // can call string method on an empty string
+            "".length; // 0
+
+            // cannot call any method on a null value
+            null.length; // error
+            ```
+
+            ---
+            ## String is immutable
+
+            String cannot be change.
+
+            ```javascript
+            let fruit = "apple";
+            fruit.toUpperCase();
+            console.log(fruit); // "apple" is unchanged
+
+            // you have to resave the result
+            fruit = fruit.toUpperCase();
+            console.log(fruit); // "APPLE"
+            ```
+            ---
+            # Demo
+            [Weather test](https://replit.com/@nhucodes/weather-test)
+
+            ---
+            ## ASCII
+            American Standard Code for Information Interchange
+
+            Maps 0 and 127 to
+            - English letters
+            - numbers
+            - symbols.
+
+            <p class="fragment">
+              Then they extended to 256 to include more characters/symbols.
+            </p>
+            ---
+            ## Codepoint
+            But what about Russian, Japanese, and Chinese characters?
+
+            ---
+            ## Unicode - UTF
+            Unicode
+
+            143,859 characters covering
+            - 154 modern and historic scripts (ô)
+            - symbols (µ)
+            - emoji (😆)
+            - non-visual control and formatting codes (`\n`)
+            ---
+            ## Unicode
+
+            ```
+            const symbol = "\ud835\udd46"; // 𝕆
+            symbol.length; // 2
+            ```
+            [List of Unicode character](https://en.wikipedia.org/wiki/List_of_Unicode_characters)
+
+            ---
+            # Array
+
+
+            ---
+            ## Array
+
+            Arrays are ordered lists of values.
+
+            ```javascript
+            const weather = ["sunny", "cloudy", "rainy"];
+
+            const primes = [2, 3, 5, 7, 11, 13];
+
+            const booleanValues = [true, false];
+            ```
+
+            Don't mix type unless you absolutely have to.
+
+            ---
+            ## Array - []
+
+            Use `[]` to get the value.
+
+            Array index starts at 0.
+
+            ```javascript
+            const colors = ["blue", "red", "green"];
+
+            colors[0]; // "blue"
+            colors[colors.length];
+
+            ```
+            <p class="fragment">
+              <code>colors[colors.length]</code> is undefined.
+              <br>
+              <code>colors[colors.length - 1]</code> gets the last item.
+            </p>
+
+            ---
+            ## Array - Update
+
+            Array is mutable!
+
+            ```javascript
+            const colors = ["blue", "red", "green"];
+            colors[1] = "orange"; // ["blue", "orange", "green"]
+            ```
+
+            ---
+            ## Array - Common methods
+
+            - .includes()
+            - .indexOf()
+            - .join()
+            - .reverse()
+            - .sort()
+            - .push()
+            - .pop()
+
+            [MDN - Mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+            ---
+
+            # Demo
+            [Weather test](https://replit.com/@nhucodes/weather-test)
+
+            ---
+            ## Multi-Dimensional Arrays
+
+            ```javascript
+            let shuttleCrews = [
+              ['Robert Gibson', 'Mark Lee', 'Mae Jemison'],
+              ['Kent Rominger', 'Ellen Ochoa', 'Bernard Harris'],
+              ['Eilen Collins', 'Winston Scott',  'Catherin Coleman']
+            ];
+            ```
+
+          </textarea>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/zoom/zoom.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/search/search.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>
