@@ -44,10 +44,6 @@
 					---
 					## Operators
 					
-					<div class="fragment" style="text-align: left;">
-						
-					</div>
-					
 					<div style="text-align: left;">
 						- Allows for basic operations between various data types </br>
 						- The results of those operations are different for different data types
@@ -83,7 +79,7 @@
 					<img src="images/arithmetic-operators.png" />
 					
 					<div class="fragment" style="text-align: left;">
-						Used within numeric data types to perform common math operations!
+						Used within numeric data types to perform common math operations, and resolves to a <span style="color: cadetblue">value</span>
 					</div>
 
 					---
@@ -121,21 +117,18 @@
 					// (++) Increment Operator
 					// 	 Note - Must be used on a variable!
 					int value = 5;
-					int prefixValue = ++value; // prefixValue = 6
+					value++; // value = 6;
+					// The above line is the same as the below line
+					value = value + 1;
 					
-					value = 5;
-					int postfixValue = value++; // postfixValue = 5
 					
 					// (--) Decrement Operator
-					int value = 5;
-					int preDecrementedValue = --value; // preIncrementedValue = 4
-					
 					value = 5;
-					int postDecrementedValue = value--; // postIncrementedValue = 5
+					value--; // value = 4;
 					```
 					
 					<div class="fragment" style="text-align: left;">
-						<a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/arithmetic-operators#increment-operator-">Microsoft Docs Example</a>
+						<a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/arithmetic-operators#increment-operator-">Microsoft Docs Prefix vs Postfix</a>
 					</div>
 					
 					---
@@ -147,6 +140,12 @@
 					<div class="fragment" style="text-align: left;">
 						Used within boolean operands (expressions) to <span style="color: cadetblue;"> resolve to a boolean value </span>
 					</div>
+					
+					---
+					
+					## Logical Operators - Charts!
+					
+					<img src="images/02-control-flow/logical-operators-chart.png" />
 					
 					---
 					
@@ -182,8 +181,6 @@
 						Important note! C# Doesn't do any type conversion on comparison operators
 					</div>
 					
-					
-					
 					---
 					
 					## Equality and Comparison Operators - Code Examples
@@ -194,14 +191,18 @@
 					bool result2 = 1 == 1; // output: true
 					bool result3 = 1 == "1"; // output: false
 					
-					// (&&) Logical OR Operator
-					bool result4 = false || false; // output: false
-					bool result5 = true || false; // output: true
-					bool result6 = true || true; // output: true
+					// (!=) Non Equality Operator
+					bool result4 = 1 != 2; // output: true
+					bool result5 = 1 != 1; // output: false
 					
-					// (!) Logical Negation Operator (Unary Operator)
-					bool result7 = !true; // output: false;
-					bool result8 = !false; // output: true;
+					// (>) Greater than Operator
+					bool result6 = 5 > 3; // output: true
+					bool result7 = 5 > 5; // output: false
+
+					// (>=) Greater than or Equal to Operator
+					bool result7 = 5 >= 3; // output: true
+					bool result8 = 5 >= 5; // output: true
+					bool result9 = 4 >= 5; // output: false
 					```
 					---
 					
@@ -210,7 +211,7 @@
 					<img src="images/02-control-flow/assignment-operators.png" />
 					
 					<div class="fragment" style="text-align: left;">
-						Used to set the value on the left side of the operator to the result of the right side of the operator. 
+						Used to set the <span style="color: cadetblue">value</span> on the left side of the operator to the result of the right side of the operator. 
 					</div>
 					
 					---
@@ -254,11 +255,10 @@
 					---
 					## Operators - Concept check!
 					
-					<p style="text-align: left;">
-					  - What is the result of `1 == "1"`? </br>
-					  - How could I go about seeing the character at index 3 of a string? </br>
-					  - What is wrong with the following code?
-					</p>
+					  - <span style="font-size: 1.25rem;">What is the result of `1 == "1"`?</span> </br>
+					  - <span style="font-size: 1.25rem;">What is the output of the following code, and why? `double dividedDouble = 7 / 2;`</span> </br>
+					  - <span style="font-size: 1.25rem;">What is the result of the following code? `true && true && false`</span> </br>
+					  - <span style="font-size: 1.25rem;">What is short hand could I use for the following code? `value = value + 6;`</span>
 
 					---
 					## Conditional Statements
@@ -357,13 +357,9 @@
 					
 					## For loop
 					
-					
-					<p style="text-align: left; font-size: 1.25rem;">
-					  - `int i = 0;` is the <span style="color: cadetblue;">initializer section</span>. This section runs once and intializes our index value (often using value `i`, or `j` for nested loops). </br>
-					  - `i < 3;` is the <span style="color: cadetblue;">condition section</span>. This section contains a boolean expression that for as long as it is true, the loop continues. </br>
-					  - `i++;` is the <span style="color: cadetblue;">iterator section</span>. This section defines what happens after each execution of the body of the loop.
-					</p>
-					
+					- <span style="text-align: left; font-size: 1.25rem;">`int i = 0;` is the <span style="color: cadetblue;">initializer section</span>. This section runs once and intializes our index value (often using value `i`, or `j` for nested loops). </span> </br>
+					- <span style="text-align: left; font-size: 1.25rem;">`i < 3;` is the <span style="color: cadetblue;">condition section</span>. This section contains a boolean expression that for as long as it is true, the loop continues. </span> </br>
+					- <span style="text-align: left; font-size: 1.25rem;"> `i++;` is the <span style="color: cadetblue;">iterator section</span>. This section defines what happens after each execution of the body of the loop. </span>
 					
 					```c#
 					for (int i = 0; i < 3; i++)
@@ -373,7 +369,6 @@
 					// Output:
 					// 012
 					```
-					
 					
 					---
 					## Foreach loop
@@ -423,8 +418,7 @@
 					<p class="fragment" style="text-align: left;">
 					  - This loop will execute <span style="color: cadetblue;">one</span> or more times, for as long as the conditional statement is true!
 					</p>
-					
-					
+					  
 					---
 					## Concatenating Strings
 					
@@ -442,13 +436,21 @@
 					Console.WriteLine(stringToBuild);
 					```
 					
-					#### Via string.Join method
+					#### Via string.Join() method
 					
 					```c#
 					string[] names = { "Carl", "Sierra", "Tolani", "Ankur", "Destin" };
 					string namesToPrint = string.Join(", ", names);
 					Console.WriteLine($"List of C# TAs: {namesToPrint}");
 					```
+					
+					---
+					
+					## Loops - Concept check!
+					
+					  - Why might I want to use a foreach loop over a for loop? </br>
+					  - Why might I want to use a do-while loop over a while loop? </br>
+					  - What might cause one of our loops to run infinitely, and how can we protect against it?
 					
 					---
 					
@@ -466,14 +468,14 @@
 					<p class="fragment" style="text-align: left; font-size: 1.25rem;">
 					  Two main reasons to use Arrays over Collections: </br>
 						- Performance - Arrays take up less memory, and referencing elements in the array is quicker </br>
-						- To Convey intention - When you choose to use an array, other developers looking at your code will know that you're probably not manipulating this data set.
+						- To Convey intention - When you choose to use an array, other developers looking at your code will know that you're probably not adding and removing from that data set.
 					</p>
 
 					---
 					## Collections (cont) - Lists
 					
-					- <span style="color: cadetblue">List</span> is a class that <span style="color: cadetblue">implements</span> ICollection
-					- We'll talk about implements more when we get to classes, but for now think of List as everything that a Collection is, and more!
+					- <span style="text-align: left; font-size: 1.25rem;"><span style="color: cadetblue">List</span> is a class that <span style="color: cadetblue">implements</span> ICollection</span>
+					- <span style="text-align: left; font-size: 1.25rem;">We'll talk about what <span style="color: cadetblue">implements</span> means more when we get to classes, but for now think of List as everything that a Collection is, and more!</span>
 					
 					```c#
 					// Create the empty list
@@ -486,7 +488,6 @@
 					names.AddRange({"Ankur", "Carl", "Sierra", "Tolani", "Destin"});
 					
 					// -- Print all names (a number of different ways) --
-					
 					// Via loops
 					foreach(var name in names)
 					{
@@ -508,7 +509,9 @@
 					
 					```c#
 					// Initialize a list with values
-					List<string> names = new List<string>() { "Ryan", "Carl", "Sierra", "Tolani", "Ankur", "Destin" };
+					List<string> names = new List<string>() { 
+						"Ryan", "Carl", "Sierra", "Tolani", "Ankur", "Destin" 
+					};
 					
 					// Remove first matching item from list
 					names.Remove("Ryan");
@@ -529,10 +532,15 @@
 					---
 					## Collections (cont) - Dictionaries
 					
-					- Same as lists, <span style="color: cadetblue">Dictionary</span> is a class that <span style="color: cadetblue">implements</span> ICollection
-					- Dictionaries store <span style="color: cadetblue">Key / Value Pairs</span>, much like objects in JavaScript!
-					- Similarly, dictionaries allow us to pull out values by providing the related key to the dictionary
-					- Dictionaries should be used when we want to organize values based on an identifier (our key)
+					- <span style="text-align: left; font-size: 1.25rem;">Same as lists, <span style="color: cadetblue">Dictionary</span> is a class that <span style="color: cadetblue">implements</span> ICollection</span>
+					- <span style="text-align: left; font-size: 1.25rem;">Dictionaries store <span style="color: cadetblue">Key / Value Pairs</span>, much like objects in JavaScript!</span>
+					- <span style="text-align: left; font-size: 1.25rem;">Similarly, dictionaries allow us to pull out values by providing the related key to the dictionary</span>
+					- <span style="text-align: left; font-size: 1.25rem;">Dictionaries should be used when we want to organize values based on an identifier (our key)</span>
+					
+					---
+					## Collections (cont) - Dictionaries 
+					
+					#### Code Examples
 					
 					```c#
 					// Initialize a Dictionary with values
@@ -542,198 +550,29 @@
 						{ 3, "Three" }
 					};
 					
-					// Add a single value to the list
-					names.Add("Ryan");
+					// Retrieve a value via a key
+					string valueOne = numericToWrittenValue[1]; // valueOne = "One"
 					
-					// Add multiple values to a list
-					names.AddRange({"Ankur", "Carl", "Sierra", "Tolani", "Destin"});
+					// Determine if the dictionary contains a particular key
+					bool hasFour = numericToWrittenValue.ContainsKey(4); // hasFour = false
 					
-					// -- Print all names (a number of different ways) --
+					// Add a value to a dictionary for a new key
+					numericToWrittenValue.Add(4, "Four");
 					
-					// Via loops
-					foreach(var name in names)
-					{
-						Console.WriteLine(name);
-					}
+					// Edit the value of an existing key
+					numericToWrittenValue[1] = "YOU'VE BEEN PRANKED, THIS ISN'T ONE ANYMORE!");
 					
-					// Via ForEach method on the names list
-					names.ForEach(n => Console.WriteLine(n));
-					
-					// Via the Join method on the string data type
-					string commaDelimitedNames = string.Join(", ", names);
-					Console.WriteLine(commaDelimitedNames);
+					// Remove a key value pair via the key
+					numericToWrittenValue.Remove(4);
 					```
 					
 					---
 					
-					<p class="fragment" style="text-align: left; color: red;">
-					  - Beware! This approach can fail if attempting to parse incorrect values!
-					</p>
-
-					---
-					## Using Directive
+					## Collections - Concept Check!
 					
-					#### Objective
-					- Refer to code defined outside of the current namespace (often from other files)
-					
-					#### Javascript
-					```javascript
-					import defaultExport from "module-name";
-					```
-					
-					#### C#
-					```C#
-					using System;
-					```
-					
-					<p class="fragment" style="color: cadetblue;">
-						Demo
-					</p>
-					
-					---
-					## Concept Check!
-
-					<p style="text-align: left;">
-					  - What's the difference between implicit and explicit conversion? </br>
-					  - Within a console application, how might I take a user's input and treat it as a number? </br>
-					  - What is the purpose of a using directive?
-					</p>
-
-					---
-					## Strings
-
-					<p style="text-align: left;">
-					  - Are Immutable </br>
-					  - Are arrays of chars (characters) </br>
-					  - Represents a number of different characters (just like in Javascript!)
-					</p>
-					
-					```c#
-					string name = "Ryan";
-					string message = "Hello students! How is the first lecture going?";
-					```
-
-					<p class="fragment" style="text-align: left;">
-						- In C#, strings must use double quotes (") </br>
-						- Single quotes are used for individual char values (')
-					</p>
-					
-					---
-					## String Manipulation
-
-					#### Adding strings
-
-					```c#
-					string firstName = "Ryan";
-					string lastName = "Shaw";
-					string fullName = firstName + " " + lastname; // output: "Ryan Shaw"
-					
-					// alternative way using string interpolation
-					string fullName = $"{firstName} {lastName}"; // output: "Ryan Shaw"
-					```
-					
-					#### Length of strings
-					
-					```c#
-					string name = "Ryan";
-					int nameLength = name.Length; // nameLength: 4
-					```
-					
-					---
-					## Arrays
-
-					<p style="text-align: left;">
-					  - Are of fixed size </br>
-					  - Represent collections of the same data type
-					</p>
-					
-					#### Initialize empty int array of length 10
-					
-					```c#
-					int[] array = new int[10];
-					```
-					
-					#### Create array with initial values
-
-					```c#
-					int[] array = {5, 5, 2, 8, 11, 53};
-					```
-					
-					---
-					## Arrays (cont.)
-					
-					#### Referencing items in an array by index
-
-					```c#
-					int[] array = {5, 5, 2, 8, 11, 53};
-					int indexZero = array[0]; // index of 0 will equal 5
-					int indexFour = array[4]; // index of 4 will equal 11
-					```
-					
-					<p class="fragment" style="color: cadetblue;">
-						Demo
-					</p>
-					
-					---
-					## Strings, Characters, and Arrays - Concept check!
-					
-					<p style="text-align: left;">
-					  - What is meant by the statement "strings are immutable"? </br>
-					  - How could I go about seeing the character at index 3 of a string? </br>
-					  - What is wrong with the following code?
-					</p>
-
-					```c#
-					int[] someInts = {6, 3, 1};
-					int lastInt = someInts[3];
-					```
-					---
-					## Objects at a high level
-					
-					#### How objects are similar in C# and Javascript
-					
-					<p style="text-align: left;">
-					  - Objects can have properties </br>
-					  - Objects can have methods
-					</p>
-					
-					<p class="fragment">
-						This is an extremely simple look at objects, and we'll dive much deeper when we get to the chapter on classes
-					</p>
-					
-					---
-					## Objects (cont)
-					
-					#### Using static methods on a class
-					
-					- Static classes and methods don't care about state
-					
-					```c#
-					public static class TemperatureConverter
-					{
-						public static double CelsiusToFahrenheit(string temperatureCelsius)
-						{
-							// Convert argument to double for calculations.
-							double celsius = Double.Parse(temperatureCelsius);
-
-							// Convert Celsius to Fahrenheit.
-							double fahrenheit = (celsius * 9 / 5) + 32;
-
-							return fahrenheit;
-						}
-
-						public static double FahrenheitToCelsius(string temperatureFahrenheit)
-						{
-							// Convert argument to double for calculations.
-							double fahrenheit = Double.Parse(temperatureFahrenheit);
-
-							// Convert Fahrenheit to Celsius.
-							double celsius = (fahrenheit - 32) * 5 / 9;
-
-							return celsius;
-						}
-					}
-					```
+					- Why might I choose to use a List over an Array?
+					- When might I choose to use a Dictionary?
+					- When are are going to learn more about <span style="color: cadetblue;">implements</span>?
 					
 					---
 					## Questions
