@@ -189,7 +189,7 @@
 					// (==) Equality Operator
 					bool result1 = 1 == 2; // output: false
 					bool result2 = 1 == 1; // output: true
-					bool result3 = 1 == "1"; // output: false
+					bool result3 = 1 == "1"; // output: error! cannot be applied to operands of type `int` and `string`
 					
 					// (!=) Non Equality Operator
 					bool result4 = 1 != 2; // output: true
@@ -200,9 +200,9 @@
 					bool result7 = 5 > 5; // output: false
 
 					// (>=) Greater than or Equal to Operator
-					bool result7 = 5 >= 3; // output: true
-					bool result8 = 5 >= 5; // output: true
-					bool result9 = 4 >= 5; // output: false
+					bool result8 = 5 >= 3; // output: true
+					bool result9 = 5 >= 5; // output: true
+					bool result10 = 4 >= 5; // output: false
 					```
 					---
 					
@@ -485,7 +485,7 @@
 					names.Add("Ryan");
 					
 					// Add multiple values to a list
-					names.AddRange({"Ankur", "Carl", "Sierra", "Tolani", "Destin"});
+					names.AddRange(new List<string>(){"Ankur", "Carl", "Sierra", "Tolani", "Destin"});
 					
 					// -- Print all names (a number of different ways) --
 					// Via loops
@@ -560,7 +560,7 @@
 					numericToWrittenValue.Add(4, "Four");
 					
 					// Edit the value of an existing key
-					numericToWrittenValue[1] = "YOU'VE BEEN PRANKED, THIS ISN'T ONE ANYMORE!");
+					numericToWrittenValue[1] = "YOU'VE BEEN PRANKED, THIS ISN'T ONE ANYMORE!";
 					
 					// Remove a key value pair via the key
 					numericToWrittenValue.Remove(4);
@@ -572,28 +572,14 @@
 					
 					- Why might I choose to use a List over an Array?
 					- When might I choose to use a Dictionary?
-					- When are are going to learn more about <span style="color: cadetblue;">implements</span>?
+					- When are we going to learn more about <span style="color: cadetblue;">implements</span>?
 					
 					---
 					## Questions
 					
 					---
 					# Studio
-					[Link](https://education.launchcode.org/csharp-web-development/chapters/data-types/studio.html)
-					---
-					## Resources / supplemental reading
-					
-					##### Data Types
-					- [Tutorial teacher - Data Types](https://www.tutorialsteacher.com/csharp/csharp-data-types)
-					- [C# Corner - Data Types](https://www.c-sharpcorner.com/uploadfile/puranindia/type-conversions-in-C-Sharp/)
-					- [Microsoft docs - Value Types](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-types)
-					- [Microsoft docs - Reference Types](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/reference-types)
-					
-					##### Type Conversion
-					- [Microsoft Docs - Casting and Type Conversions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/casting-and-type-conversions)
-					
-					##### Objects
-					- [Microsoft docs - Static Class Members](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/static-classes-and-static-class-members)
+					[Link](https://education.launchcode.org/csharp-web-development/chapters/control-flow-and-collections/studio.html)
 				  </textarea>
 				</section>
 			</div>
