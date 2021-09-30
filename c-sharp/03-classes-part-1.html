@@ -47,7 +47,7 @@
 					
 					#### Big Ideas
 					
-					- Are an organizational tool in our code to create templates for what we expect our <span style="color: cadetblue;">objects</span> to contain. 
+					- Classes are an organizational tool in our code to create templates for what we expect our <span style="color: cadetblue;">objects</span> to contain. 
 					- Classes are meant to <span style="color: cadetblue;">encapsulate</span> related programming responsibilities.
 					- These concepts are all part of something we call <span style="color: cadetblue;">object oriented programming</span>.
 					
@@ -72,17 +72,17 @@
 					public class Square {
 					
 						// Properties
-						public double length { get; set; }
+						public double Length { get; set; }
 						
 						// Methods
 						public double CalculateArea()
 						{
-							return length * length;
+							return Length * Length;
 						}
 						
 						public double CalculateCircumference()
 						{
-							return length * 4;
+							return Length * 4;
 						}
 					}
 					```
@@ -91,9 +91,9 @@
 					
 					## Anatomy of a Class
 					
-					#### Classes Vocab
+					#### Vocabulary
 					- <span style="color: cadetblue;">Constructor</span> - The method which is called when a class is instantiated.
-					- <span style="color: cadetblue;">Field</span> - Variables that are meant to be used internally to class.
+					- <span style="color: cadetblue;">Field</span> - Variables that are meant to be used internally to the class.
 					- <span style="color: cadetblue;">Properties</span> - Variables which are used both internally and externally to the class.
 					- <span style="color: cadetblue;">Methods</span> - Functions which are defined within a class, and can leverage the data within a class.
 					
@@ -106,11 +106,15 @@
 					
 						// Properties
 						public double Length { get; set; }
+						
+						// Fields
+						public int _numberOfSides;
 					
 						// Constructor
 						public Square(double length) 
 						{
 							this.Length = length;
+							_numberOfSides = 4;
 						}
 						
 						// Methods
@@ -121,7 +125,7 @@
 						
 						public double CalculateCircumference()
 						{
-							return Length * 4;
+							return Length * _numberOfSides;
 						}
 						
 						public void DisplayStats()
@@ -147,53 +151,14 @@
 					---
 					## Access modifiers (cont)
 					
-					#### Code Example
-					
-					```c#
-					public class Square {
-					
-						// Properties
-						public double Length { get; set; }
-					
-						// Constructor
-						public Square(double length) 
-						{
-							Length = length;
-						}
-						
-						// Methods
-						private double CalculateArea()
-						{
-							return Length * Length;
-						}
-						
-						private double CalculateCircumference()
-						{
-							return Length * 4;
-						}
-						
-						public void DisplayStats()
-						{
-							Console.WriteLine("Here are some stats on your square!\n"
-								+ $"Length: {Length} units\n"
-								+ $"Area: {CalculateArea()} units squared\n"
-								+ $"Circumference: {CalculateCircumference()} units in length"
-							);
-						}
-					}
-					
-					
-					---
-					## Access modifiers (cont)
-					
-					- <span style="color: cadetblue;">Public</span> - The type or member can be accessed by any other code
+					- <span style="color: cadetblue;">Public</span> - The type or member can be accessed by any other code.
 					- <span style="color: cadetblue;">Private</span> - The type or member can be accessed only by code in the same class or struct.
 					
 					---
 					
 					## Instantiation
 					
-					- When you create a new object in C# for a class using the new keyword, then it is called instantiation
+					- When you create a new object in C# for a class using the new keyword, then it is called instantiation.
 					
 					```c#
 					// Instantiating an object from a class
@@ -225,7 +190,7 @@
 					// Instantiating an object from a class
 					Square SquareWithLengthFive = new Square()
 					{
-						length = 5
+						Length = 5
 					};
 					```
 					
@@ -252,9 +217,9 @@
 					
 					#### Storing return types
 					
-					<span style="text-align: left;">
-						On our method `CalculateArea()`, our return type is a double. The code example below shows us how to store that returned value in a variable.
-					</span>
+					
+					On our method `CalculateArea()`, our return type is a double. The code example below shows us how to store that returned value in a variable.
+					
 					
 					```c#
 					Square SquareObject = new Square(5);
@@ -276,14 +241,57 @@
 						demo
 					</div>
 					
+					---
+					## Access modifiers (cont)
+					
+					#### Code Example
+					
+					```c#
+					public class Square {
+					
+						// Properties
+						public double Length { get; set; }
+						
+						// Fields
+						private int _numberOfSides;
+					
+						// Constructor
+						public Square(double length) 
+						{
+							Length = length;
+							_numberOfSides = 4;
+						}
+						
+						// Methods
+						private double CalculateArea()
+						{
+							return Length * Length;
+						}
+						
+						private double CalculateCircumference()
+						{
+							return Length * _numberOfSides;
+						}
+						
+						public void DisplayStats()
+						{
+							Console.WriteLine("Here are some stats on your square!\n"
+								+ $"Length: {Length} units\n"
+								+ $"Area: {CalculateArea()} units squared\n"
+								+ $"Circumference: {CalculateCircumference()} units in length"
+							);
+						}
+					}
 					
 					---
 					## Classes - Concept check!
 					
-					  - When might we want to use classes in our programs?
-					  - What is the difference between `public` and `private`, and why might I use one over the other?
-					  - What is meant by the term `encapsulation` in the context of classes?
-					  - What is the difference between a property and a field?
+					<ol>
+						<li>When might we want to use classes in our programs?</li>
+						<li>What is the difference between <span style="color: cadetblue;">public</span> and <span style="color: cadetblue;">private</span>, and why might I use one over the other?</li>
+						<li>What is meant by the term <span style="color: cadetblue;">encapsulation</span> in the context of classes?</li>
+						<li>What is the difference between a property and a field?</li>
+					</ol>
 					  
 					---
 					
@@ -311,7 +319,7 @@
 					```
 					
 					<div class="fragment" style="text-align: left;">
-						Not everyone has a pet, and that property it more closely tied to the Pet itself rather than the person!
+						Not everyone has a pet, and that property is more closely tied to the Pet itself rather than the person!
 					</div>
 					
 					---
@@ -335,6 +343,12 @@
 					<div class="fragment" style="text-align: left;">
 						An alternative approach could be to have the function return the string, and let the invoker of the function decide what to do with it.
 					</div>
+					
+					---
+					
+					## Exercises
+					
+					[Link](https://education.launchcode.org/csharp-web-development/chapters/classes/exercises.html)
 					
 					---
 					## Questions
