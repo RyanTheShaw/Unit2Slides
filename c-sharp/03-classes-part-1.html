@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Classes Part 1</title>
+
+		<meta name="description" content="">
+		<meta name="author" content="Ryan Shaw">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/league.css" id="theme">
+		<link rel="stylesheet" href="styles/ryans-styles.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="../css/override.css">
+
+	</head>
+	<body>
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-markdown>
+				  <textarea data-template>
+					## Classes - Part 1 </br>
+					
+					#### Key topics for tonight 
+					<div style="text-align: left;">
+						
+						- High level overview of classes </br>
+						- Anatomy of a class </br>
+						- Instantiating an object from a class </br>
+						- Combining it all with code examples
+					</div>
+					
+					---
+					## Intro to Classes
+					
+					#### Big Ideas
+					
+					- Are an organizational tool in our code to create templates for what we expect our <span style="color: cadetblue;">objects</span> to contain. 
+					- Classes are meant to <span style="color: cadetblue;">encapsulate</span> related programming responsibilities.
+					- These concepts are all part of something we call <span style="color: cadetblue;">object oriented programming</span>.
+					
+					---
+					## Intro to Classes (cont)
+					
+					#### Encapsulation
+					
+					<img style="width: 50%;" src="images/03-classes-part-1/encapsulation.jpg" />
+					
+					<div class="fragment" style="text-align: left;">
+						The bundling of data with methods that operate on that data
+					</div>
+					
+					---
+					## Intro to Classes (cont)
+					
+					#### Encapsulation
+					
+					```c#
+					
+					public class Square {
+					
+						// Properties
+						public double length { get; set; }
+						
+						// Methods
+						public double CalculateArea()
+						{
+							return length * length;
+						}
+						
+						public double CalculateCircumference()
+						{
+							return length * 4;
+						}
+					}
+					```
+					
+					---
+					
+					## Anatomy of a Class
+					
+					#### Classes Vocab
+					- <span style="color: cadetblue;">Constructor</span> - The method which is called when a class is instantiated.
+					- <span style="color: cadetblue;">Field</span> - Variables that are meant to be used internally to class.
+					- <span style="color: cadetblue;">Properties</span> - Variables which are used both internally and externally to the class.
+					- <span style="color: cadetblue;">Methods</span> - Functions which are defined within a class, and can leverage the data within a class.
+					
+					---
+					## Anatomy of a Class - Code Example
+
+					```c#
+					
+					public class Square {
+					
+						// Properties
+						public double Length { get; set; }
+					
+						// Constructor
+						public Square(double length) 
+						{
+							this.Length = length;
+						}
+						
+						// Methods
+						public double CalculateArea()
+						{
+							return Length * Length;
+						}
+						
+						public double CalculateCircumference()
+						{
+							return Length * 4;
+						}
+						
+						public void DisplayStats()
+						{
+							Console.WriteLine("Here are some stats on your square!\n"
+								+ $"Length: {Length} units\n"
+								+ $"Area: {CalculateArea()} units squared\n"
+								+ $"Circumference: {CalculateCircumference()} units in length"
+							);
+						}
+					}
+					```
+
+					---
+					## Access modifiers
+					
+					- <span style="font-size: 1.25rem;">An access modifier determines how other parts of the code can interact with the type or member which is being modified.</span>
+					- <span style="font-size: 1.25rem;">For now, we only need to worry about <span style="color: cadetblue;">public</span> and <span style="color: cadetblue;">private</span>, but we'll return to the other ones later when we talk about <span style="color: cadetblue;">inheritence</span></span>
+					</br>
+					
+					<img src="images/03-classes-part-1/access-modifier-chart.png" />
+					
+					---
+					## Access modifiers (cont)
+					
+					#### Code Example
+					
+					```c#
+					public class Square {
+					
+						// Properties
+						public double Length { get; set; }
+					
+						// Constructor
+						public Square(double length) 
+						{
+							Length = length;
+						}
+						
+						// Methods
+						private double CalculateArea()
+						{
+							return Length * Length;
+						}
+						
+						private double CalculateCircumference()
+						{
+							return Length * 4;
+						}
+						
+						public void DisplayStats()
+						{
+							Console.WriteLine("Here are some stats on your square!\n"
+								+ $"Length: {Length} units\n"
+								+ $"Area: {CalculateArea()} units squared\n"
+								+ $"Circumference: {CalculateCircumference()} units in length"
+							);
+						}
+					}
+					
+					
+					---
+					## Access modifiers (cont)
+					
+					- <span style="color: cadetblue;">Public</span> - The type or member can be accessed by any other code
+					- <span style="color: cadetblue;">Private</span> - The type or member can be accessed only by code in the same class or struct.
+					
+					---
+					
+					## Instantiation
+					
+					- When you create a new object in C# for a class using the new keyword, then it is called instantiation
+					
+					```c#
+					// Instantiating an object from a class
+					Square SquareObject = new Square();
+					```
+					
+					---
+					
+					## Instantiation (cont)
+					
+					#### Instantiating via an overloaded constructor
+					
+					```c#
+					// Instantiating an object from a class
+					Square SquareWithLengthFive = new Square(5);
+					```
+					
+					<div class="fragment" style="text-align: left;">
+						This method requires the creation of additional constructors in the class definition.
+					</div>
+					
+					---
+					
+					## Instantiation (cont)
+										
+					#### Instantiating via an object initializer
+					
+					```c#
+					// Instantiating an object from a class
+					Square SquareWithLengthFive = new Square()
+					{
+						length = 5
+					};
+					```
+					
+					<div class="fragment" style="text-align: left;">
+						This method is more common these days as it doesn't require constructor overloading to set properties.
+					</div>
+					
+					---
+					
+					## Calling methods on objects
+					
+					<div style="text-align: left;">
+						Now that we've created our objects, let's make some calls to the methods within them!
+					</div>
+					
+					```c#
+					Square SquareObject = new Square(5);
+					SquareObject.DisplayStats();
+					```
+					
+					---
+					
+					## Calling methods on objects (cont)
+					
+					#### Storing return types
+					
+					<span style="text-align: left;">
+						On our method `CalculateArea()`, our return type is a double. The code example below shows us how to store that returned value in a variable.
+					</span>
+					
+					```c#
+					Square SquareObject = new Square(5);
+					double area = SquareObject.CalculateArea();
+					```
+					
+					---
+					
+					## Combine it all with code examples!
+					
+					#### Adjusting access modifiers
+					
+
+					- What would happen if we gradually made some of our properties and methods <span style="color: cadetblue;">private</span> rather than <span style="color: cadetblue;">public</span>?
+					- What would that convey to the other developers using this code?
+
+					
+					<div class="fragment" style="color: cadetblue;">
+						demo
+					</div>
+					
+					
+					---
+					## Classes - Concept check!
+					
+					  - When might we want to use classes in our programs?
+					  - What is the difference between `public` and `private`, and why might I use one over the other?
+					  - What is meant by the term `encapsulation` in the context of classes?
+					  - What is the difference between a property and a field?
+					  
+					---
+					
+					## Single Responsibility Principle
+					
+					  - Each class definition should concern itself with one concept or responsibility.
+					  - This is true for both the data and functionality contained within a particular class
+					  
+					---
+					
+					## Single Responsibility Principle
+					
+					#### Code examples - property violation
+					
+					```c#
+					// below is an example of a class that violates the single responsibilty principle!
+					public class Person {
+						public string Name { get; set; }
+						public DateTime BirthDay { get; set; }
+						public int Age { get; set; }
+						
+						// The property "PetsName" violates the single responsbility principle
+						public string PetsName { get; set; }
+					}
+					```
+					
+					<div class="fragment" style="text-align: left;">
+						Not everyone has a pet, and that property it more closely tied to the Pet itself rather than the person!
+					</div>
+					
+					---
+					
+					## Single Responsibility Principle
+					
+					#### Code examples - function violation
+					
+					```c#
+					// This function does TWO things. Generates the string, as well as displays it to the console.
+					public void DisplayStats()
+					{
+						Console.WriteLine("Here are some stats on your square!\n"
+							+ $"Length: {Length} units\n"
+							+ $"Area: {CalculateArea()} units squared\n"
+							+ $"Circumference: {CalculateCircumference()} units in length"
+						);
+					}
+					```
+					
+					<div class="fragment" style="text-align: left;">
+						An alternative approach could be to have the function return the string, and let the invoker of the function decide what to do with it.
+					</div>
+					
+					---
+					## Questions
+					
+					---
+					# Studio
+					[Link](https://education.launchcode.org/csharp-web-development/chapters/classes/studio.html)
+				  </textarea>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/zoom/zoom.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/search/search.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>
