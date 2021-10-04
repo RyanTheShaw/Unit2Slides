@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Classes Part 2</title>
+
+		<meta name="description" content="">
+		<meta name="author" content="Ryan Shaw">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/league.css" id="theme">
+		<link rel="stylesheet" href="styles/ryans-styles.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="../css/override.css">
+
+	</head>
+	<body>
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-markdown>
+				  <textarea data-template>
+					## Classes - Part 2 </br>
+					
+					#### Key topics for tonight 
+					<div style="text-align: left;">
+						
+						- Fields in depth </br>
+						- Instance vs. Static Classes</br>
+						- The Object Class </br>
+					</div>
+					
+					---
+					## Fields in depth
+					
+					#### Variable Modifiers
+					
+					- <span style="color: cadetblue;">Readonly</span> - Indicates that assignment to the field can only occur as part of the declaration or in a constructor in the same class.
+					- <span style="color: cadetblue;">Static</span> - Indicates that the field is shared by all instances of the class.
+					- <span style="color: cadetblue;">Constant</span> - Enforce that the field must be given a value on initialization. This assigned value will not be able to change after initialization.
+					
+					---
+					## Variable Modifiers - Readonly
+					
+					#### Use case
+					
+					- When you wish to have an immutable data structure at <span style="color: cadetblue;">runtime</span>.
+					
+					#### Considerations
+					
+					- When using <span style="color: cadetblue;">value</span> data types, you can be sure that the underlying value of the variable will never change.
+					- When using <span style="color: cadetblue;">reference</span> data types, you can't point the variable to a new object, but the properties on that object could change.
+					
+					---
+					## Variable Modifiers - Readonly
+					
+					#### Code Example
+					
+					```c#
+					class Age
+					{
+						readonly int year;
+						Age(int year)
+						{
+							this.year = year;
+						}
+						void ChangeYear()
+						{
+							//year = 1967; // Compile error if uncommented.
+						}
+					}
+					```
+					
+					---
+					
+					## Variable Modifiers - Static
+					
+					#### Use case
+					
+					- When you wish to share the state of a field amongst all instances of a class within your application.
+					- When the value of the field isn't going to be unique for each instance of a class.
+					
+					#### Considerations
+					
+					- Using static fields within a non-static class has some fairly narrow use cases, and often times it is better to take that static field and define / track it in it's own class.
+					
+					---
+					
+					## Variable Modifiers - Static
+					
+					#### Code Example
+					
+					```c#
+					public class Employee
+					{
+						public string id;
+						public string name;
+
+						public Employee()
+						{
+						}
+
+						public Employee(string name, string id)
+						{
+							this.name = name;
+							this.id = id;
+						}
+
+						public static int employeeCounter;
+
+						public static int AddEmployee()
+						{
+							return ++employeeCounter;
+						}
+					}
+					
+					static void Main(string[] args)
+					{
+						Console.Write("Enter the employee's name: ");
+						string name = Console.ReadLine();
+						Console.Write("Enter the employee's ID: ");
+						string id = Console.ReadLine();
+
+						// Create and configure the employee object.
+						Employee e = new Employee(name, id);
+						Console.Write("Enter the current number of employees: ");
+						string n = Console.ReadLine();
+						Employee.employeeCounter = Int32.Parse(n);
+						Employee.AddEmployee();
+
+						// Display the new information.
+						Console.WriteLine($"Name: {e.name}");
+						Console.WriteLine($"ID:   {e.id}");
+						Console.WriteLine($"New Number of Employees: {Employee.employeeCounter}");
+					}
+					```
+					
+					---
+					## Variable Modifiers - Const
+					
+					#### Use case
+					
+					- When you wish to have an immutable data structure at <span style="color: cadetblue;">compile time</span>.
+					
+					#### Considerations
+					
+					- <span style="font-size: 1.25rem;">When using constants, careful thought should be given towards how frequently this value could change between times that you run your application.</span>
+						- <span style="font-size: 1.25rem;">For instance: mathmatical values such as `PI` are extremely unlikely to change during the amount of time you'll be supporting your application.</span>
+						- <span style="font-size: 1.25rem;">Alternatively, configuration values are often seen as values that could be tweaked between instances of your application running, and are more appropriate to have as readonly values (which can be determined at runtime).</span>
+					
+					---
+					
+					## Variable Modifiers - Const
+					
+					#### Code Example
+					
+					```c#
+					public class CommonMathValues
+					{
+						public const decimal PI = 3.141592653589793238m;
+
+						public const int CelsiusBoilingPoint = 100;
+						public const int CelsiusFreezingPoint = 0;
+
+						public const double FahrenheitBoilingPoint = ((9.0 / 5) * CelsiusBoilingPoint) + 32;
+						public const double FahrenheitFreezingPoint = ((9.0 / 5) * CelsiusFreezingPoint) + 32;
+					}
+					
+					static void Main(string[] args)
+					{
+						Console.WriteLine($"PI: {CommonMathValues.PI}");
+						Console.WriteLine($"CelsiusBoilingPoint: {CommonMathValues.CelsiusBoilingPoint}");
+						Console.WriteLine($"CelsiusFreezingPoint: {CommonMathValues.CelsiusFreezingPoint}");
+						Console.WriteLine($"FahrenheitBoilingPoint: {CommonMathValues.FahrenheitBoilingPoint}");
+						Console.WriteLine($"FahrenheitFreezingPoint: {CommonMathValues.FahrenheitFreezingPoint}");
+					}
+					```
+					
+					---
+					## Variable Modifiers (cont)
+					
+					#### Readonly vs Const - When to use one over the other?
+					
+					<div class="fragment" style="color: cadetblue;">
+						Card game demo
+					</div>
+					
+					---
+					
+					## Static vs Instance Classes
+					
+					- Static classes are basically the same as non-static classes (they can contain properties, fields, methods, etc)
+					
+					#### Key differences
+					
+					- A static class cannot be <span style="color: cadetblue;">instantiated</span>.
+					- A static class can not have <span style="color: cadetblue;">instance</span> fields, <span style="color: cadetblue;">instance properties</span>, or <span style="color: cadetblue;">instance</span> methods.
+					
+					---
+					
+					## Static vs Instance Classes
+					
+					#### Code example
+					
+					<div class="fragment" style="text-align: left;">
+						- Modify CommonMathValues example to be static </br>
+						- Const field is already static by definition
+					</div>
+					
+					---
+					## The Object Class
+
+					- You've probably read this in the reading, but it hasn't quite made sense yet. <span style="color: cadetblue;">Everything is an Object</span>.
+					- There are some methods which are available to objects (and by extention, available to <span style="color: cadetblue;">everything</span>)
+					
+					#### Object Methods
+					- <span style="color: cadetblue;">ToString</span> - This method is meant to take the current object, and represent it as a string.
+					- <span style="color: cadetblue;">Equals</span> - This method is meant to compare the current object with the object supplied as a parameter, returning true if they are equal.
+					
+					---
+					## The Object Class (cont)
+					
+					#### Big Concepts
+					The purpose of having these methods on <span style="color: cadetblue;">everything</span> is because representing data as a string, and comparing two values is a valid use case that shows up on just about everything. 
+
+					---
+					## The Object Class (cont)
+					
+					#### Overriding Object Methods - ToString()
+					
+					```c#
+					public class Square {
+					
+						// Properties
+						public double Length { get; set; }
+						
+						// Fields
+						private int _numberOfSides;
+					
+						// Constructor
+						public Square(double length) 
+						{
+							Length = length;
+							_numberOfSides = 4;
+						}
+						
+						// Methods
+						private double CalculateArea()
+						{
+							return Length * Length;
+						}
+						
+						private double CalculateCircumference()
+						{
+							return Length * _numberOfSides;
+						}
+						
+						public void DisplayStats()
+						{
+							Console.WriteLine("Here are some stats on your square!\n"
+								+ $"Length: {Length} units\n"
+								+ $"Area: {CalculateArea()} units squared\n"
+								+ $"Circumference: {CalculateCircumference()} units in length"
+							);
+						}
+						
+						// This method overrides the default functionality of ToString() from object!
+						public override string ToString() {
+						   return "Here are some stats on your square!\n"
+								+ $"Length: {Length} units\n"
+								+ $"Area: {CalculateArea()} units squared\n"
+								+ $"Circumference: {CalculateCircumference()} units in length";
+						}
+					}
+					```
+					
+					---
+					## The Object Class (cont)
+					
+					#### Overriding Object Methods - Equals()
+					
+					```c#
+					public class Square {
+						// Add the below method into the square class from the previous slide!
+						
+						// This method overrides the default functionality of Equals() from object!
+						public override bool Equals(object obj)
+						{
+							if (obj == null || GetType() != obj.GetType()) 
+								return false;
+							Square squareObj = (Square)obj;
+							return Length == squareObj.Length;
+						}
+					}
+					```
+
+					---
+					## The Object Class (cont)
+					
+					#### Overriding Object Methods - Big Ideas
+					
+					- When overriding these methods, we should be thinking about what functionality would be meangingful for this class.
+					- For instance, what values are truly unique such that it should influence equality?
+					- What string representation of the object is most valuable to the developer calling ToString on this object?
+
+					---
+					
+					## Exercises
+					
+					[Link](https://education.launchcode.org/csharp-web-development/chapters/classes-part2/exercises.html)
+					
+					---
+					## Questions
+					
+					---
+					# Studio
+					[Link](https://education.launchcode.org/csharp-web-development/chapters/classes-part2/studio.html)
+				  </textarea>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/zoom/zoom.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/search/search.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>
