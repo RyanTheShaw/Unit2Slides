@@ -47,8 +47,8 @@
 					#### Variable Modifiers
 					
 					- <span style="color: cadetblue;">Readonly</span> - Indicates that assignment to the field can only occur as part of the declaration or in a constructor in the same class.
+					- <span style="color: cadetblue;">Const</span> (constant) - Enforce that the field must be given a value on initialization. This assigned value will not be able to change after initialization.
 					- <span style="color: cadetblue;">Static</span> - Indicates that the field is shared by all instances of the class.
-					- <span style="color: cadetblue;">Constant</span> - Enforce that the field must be given a value on initialization. This assigned value will not be able to change after initialization.
 					
 					---
 					## Variable Modifiers - Readonly
@@ -82,6 +82,58 @@
 					}
 					```
 					
+					---
+					## Variable Modifiers - Const
+					
+					#### Use case
+					
+					- When you wish to have an immutable data structure at <span style="color: cadetblue;">compile time</span>.
+					
+					#### Considerations
+					
+					- <span style="font-size: 1.25rem;">When using constants, careful thought should be given towards how frequently this value could change between times that you run your application.</span>
+						- <span style="font-size: 1.25rem;">For instance: mathmatical values such as `PI` are extremely unlikely to change during the amount of time you'll be supporting your application.</span>
+						- <span style="font-size: 1.25rem;">Alternatively, configuration values are often seen as values that could be tweaked between instances of your application running, and are more appropriate to have as readonly values (which can be determined at runtime).</span>
+					
+					---
+					
+					## Variable Modifiers - Const
+					
+					#### Code Example
+					
+					```c#
+					public class CommonMathValues
+					{
+						public const decimal PI = 3.141592653589793238m;
+
+						public const int CelsiusBoilingPoint = 100;
+						public const int CelsiusFreezingPoint = 0;
+
+						public const double FahrenheitBoilingPoint = ((9.0 / 5) * CelsiusBoilingPoint) + 32;
+						public const double FahrenheitFreezingPoint = ((9.0 / 5) * CelsiusFreezingPoint) + 32;
+					}
+					
+					static void Main(string[] args)
+					{
+						Console.WriteLine($"PI: {CommonMathValues.PI}");
+						Console.WriteLine($"CelsiusBoilingPoint: {CommonMathValues.CelsiusBoilingPoint}");
+						Console.WriteLine($"CelsiusFreezingPoint: {CommonMathValues.CelsiusFreezingPoint}");
+						Console.WriteLine($"FahrenheitBoilingPoint: {CommonMathValues.FahrenheitBoilingPoint}");
+						Console.WriteLine($"FahrenheitFreezingPoint: {CommonMathValues.FahrenheitFreezingPoint}");
+					}
+					```
+					
+					---
+					## Variable Modifiers (cont)
+					
+					#### Readonly vs Const - When to use one over the other?
+					
+					<div class="fragment" style="text-align: left;">
+						- <span style="color: cadetblue;">Readonly</span> allows for values at <span style="color: cadetblue;">runtime</span>. </br>
+						- <span style="color: cadetblue;">Const</span> requires the value to be determined at <span style="color: cadetblue;">compile time</span>.
+					</div>
+					
+										
 					---
 					
 					## Variable Modifiers - Static
@@ -147,54 +199,11 @@
 					```
 					
 					---
-					## Variable Modifiers - Const
 					
-					#### Use case
+					## Concept check - Field Modifiers
 					
-					- When you wish to have an immutable data structure at <span style="color: cadetblue;">compile time</span>.
-					
-					#### Considerations
-					
-					- <span style="font-size: 1.25rem;">When using constants, careful thought should be given towards how frequently this value could change between times that you run your application.</span>
-						- <span style="font-size: 1.25rem;">For instance: mathmatical values such as `PI` are extremely unlikely to change during the amount of time you'll be supporting your application.</span>
-						- <span style="font-size: 1.25rem;">Alternatively, configuration values are often seen as values that could be tweaked between instances of your application running, and are more appropriate to have as readonly values (which can be determined at runtime).</span>
-					
-					---
-					
-					## Variable Modifiers - Const
-					
-					#### Code Example
-					
-					```c#
-					public class CommonMathValues
-					{
-						public const decimal PI = 3.141592653589793238m;
-
-						public const int CelsiusBoilingPoint = 100;
-						public const int CelsiusFreezingPoint = 0;
-
-						public const double FahrenheitBoilingPoint = ((9.0 / 5) * CelsiusBoilingPoint) + 32;
-						public const double FahrenheitFreezingPoint = ((9.0 / 5) * CelsiusFreezingPoint) + 32;
-					}
-					
-					static void Main(string[] args)
-					{
-						Console.WriteLine($"PI: {CommonMathValues.PI}");
-						Console.WriteLine($"CelsiusBoilingPoint: {CommonMathValues.CelsiusBoilingPoint}");
-						Console.WriteLine($"CelsiusFreezingPoint: {CommonMathValues.CelsiusFreezingPoint}");
-						Console.WriteLine($"FahrenheitBoilingPoint: {CommonMathValues.FahrenheitBoilingPoint}");
-						Console.WriteLine($"FahrenheitFreezingPoint: {CommonMathValues.FahrenheitFreezingPoint}");
-					}
-					```
-					
-					---
-					## Variable Modifiers (cont)
-					
-					#### Readonly vs Const - When to use one over the other?
-					
-					<div class="fragment" style="color: cadetblue;">
-						Card game demo
-					</div>
+					1) When would I use readonly over const?
+					2) What does marking a field as static mean for that field?
 					
 					---
 					
@@ -213,10 +222,27 @@
 					
 					#### Code example
 					
-					<div class="fragment" style="text-align: left;">
-						- Modify CommonMathValues example to be static </br>
-						- Const field is already static by definition
-					</div>
+					```c#
+					public class CommonMathValues
+					{
+						public const decimal PI = 3.141592653589793238m;
+
+						public const int CelsiusBoilingPoint = 100;
+						public const int CelsiusFreezingPoint = 0;
+
+						public const double FahrenheitBoilingPoint = ((9.0 / 5) * CelsiusBoilingPoint) + 32;
+						public const double FahrenheitFreezingPoint = ((9.0 / 5) * CelsiusFreezingPoint) + 32;
+					}
+
+					static void Main(string[] args)
+					{
+						Console.WriteLine($"PI: {CommonMathValues.PI}");
+						Console.WriteLine($"CelsiusBoilingPoint: {CommonMathValues.CelsiusBoilingPoint}");
+						Console.WriteLine($"CelsiusFreezingPoint: {CommonMathValues.CelsiusFreezingPoint}");
+						Console.WriteLine($"FahrenheitBoilingPoint: {CommonMathValues.FahrenheitBoilingPoint}");
+						Console.WriteLine($"FahrenheitFreezingPoint: {CommonMathValues.FahrenheitFreezingPoint}");
+					}
+					```
 					
 					---
 					## The Object Class
@@ -312,7 +338,7 @@
 					
 					- When overriding these methods, we should be thinking about what functionality would be meangingful for this class.
 					- For instance, what values are truly unique such that it should influence equality?
-					- What string representation of the object is most valuable to the developer calling ToString on this object?
+					- What string representation of the object is most valuable to the developer calling `ToString` on this object?
 
 					---
 					
