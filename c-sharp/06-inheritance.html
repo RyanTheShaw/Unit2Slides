@@ -46,7 +46,7 @@
 					
 					#### Definition
 					
-					- Inheritance in C# enables you to create new classes that reuse, extend, and modify the behavior defined in other classes.
+					- Inheritance in C# enables you to create new classes that <span style="color: cadetblue;">reuse</span>, <span style="color: cadetblue;">extend</span>, and <span style="color: cadetblue;">modify</span> the behavior defined in other classes.
 					
 					---
 					## Inheritance
@@ -58,7 +58,7 @@
 						public string FirstName { get; set; } 
 						public string LastName { get; set; }
 						public bool IsAlive { get; set; }
-						public DateTime Birthday { get; set; }
+						public DateTime DateOfBirth { get; set; }
 					}
 					
 					public class Employee : Person {
@@ -137,7 +137,7 @@
 					---
 					## Inheritance
 					
-					#### Vocab
+					#### Vocabulary
 					
 					- <span style="color: cadetblue;">Child / Derived / Concrete class</span> - A class that implements another class.
 					- <span style="color: cadetblue;">Parent / Abstract / Base class</span> - A class that is implemented by another class.
@@ -199,7 +199,7 @@
 						
 						public bool GetPaid(decimal payment)
 						{
-							PaymentDetails.DepositeMoney(payment);
+							return PaymentDetails.DepositeMoney(payment);
 						}
 					}
 					
@@ -291,6 +291,14 @@
 						}
 					}
 					```
+					---
+					
+					## Inheritance - Concept Check!
+					
+					1) True or false: A parent class has more members than a child class of said parent.
+					2) When might I choose to make a parent class `abstract` instead of keeping it as a normal class?
+					3) How does using the access modifier `protected` adjust a specific property of a class? When should I use this access modifier?
+					
 					---
 					
 					## Exercises
