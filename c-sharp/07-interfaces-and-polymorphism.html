@@ -94,7 +94,7 @@
 					{
 						void Log(string message);
 
-						void LogWarning(string message)
+						public void LogWarning(string message)
 						{
 							Log($"[Warning] {message}");
 						}
@@ -110,6 +110,11 @@
 						public void Log(string message)
 						{
 							// Insert logic to log to a database here!
+						}
+
+						public void LogError(Exception ex)
+						{
+							this.LogError(ex);
 						}
 					}
 
