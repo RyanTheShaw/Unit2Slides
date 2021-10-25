@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Visual Studio Tips and Exceptions</title>
+
+		<meta name="description" content="">
+		<meta name="author" content="Ryan Shaw">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/league.css" id="theme">
+		<link rel="stylesheet" href="styles/ryans-styles.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="../css/override.css">
+
+	</head>
+	<body>
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-markdown>
+				  <textarea data-template>
+					## Exceptions and Visual Studio Tips </br>
+					
+					#### Key topics for tonight 
+					<div style="text-align: left;">
+						- Exceptions </br>
+						- In-depth Visual Studio Tips and Tricks </br>
+					</div>
+					
+					---
+					## Exceptions
+					
+					Exceptions allow for the programmer to handle and account for error states within the applications you write.
+					
+					<div class="fragment" style="text-align: left;">
+						An error state can be thought of as any state that prevents your application from continuing as expected.
+					</div>
+					
+					---
+					
+					## Exceptions (cont)
+					
+					#### Important concepts
+					
+					- There are many types of exceptions, but all of them are derived from the base exception <span style="color: cadetblue">System.Exception</span>.
+					- When exceptions are <span style="color: cadetblue">thrown</span>, they must be <span style="color: cadetblue">handled</span> to prevent the application from terminating.
+					- When working with other code libraries and APIs, it's important to understand the <span style="color: cadetblue">expected exceptions</span> and to proactively account for them.
+					  - (In what way can this code fail, and what does that mean for how I am interacting with it?)
+					  
+					---
+					
+					## Exceptions (cont)
+					
+					#### Code Syntax
+					
+					```c#
+					static void Main(string[] args)
+					{
+						throw new Exception("This string here is the exception message!");
+
+						Console.WriteLine("We'll never hit this line!");
+					}
+					```
+					
+					---
+					
+					## Exceptions (cont)
+					
+					#### Common Exception Types
+					
+					- <span style="color: cadetblue">IOException</span> - Exceptions pertaining to Input and Output. Includes Derived Exceptions: <span style="color: cadetblue">DirectoryNotFoundException</span>, <span style="color: cadetblue">FileNotFoundException</span>, <span style="color: cadetblue">PathTooLongException</span>
+					- <span style="color: cadetblue">ArithmeticException</span> - The exception that is thrown for errors in an arithmetic, casting, or conversion operation.
+					- <span style="color: cadetblue">IndexOutOfRangeException</span> - the exception that is thrown when attempting to access an index of an array larger than the bounds of the array.
+					
+					---
+					
+					## Handling Exceptions
+					
+					Knowing that there are categories of exceptions, that allows us to be intentional about how we choose to handle various exceptions that might come up. </br>
+					
+					Also, knowing that all exceptions <span style="color: cadetblue">extend</span> from System.Exception, we can treat our handling of exceptions either genetically as a general Exception, or make it specific to the more concrete Exception Type. 
+					
+					---
+					
+					## Handling Exceptions
+					
+					#### Keywords
+					
+					- <span style="color: cadetblue">try</span> - A try block is a scope of code where a possible exception might happen.
+					- <span style="color: cadetblue">catch</span> - A catch block is a block of code that will be executed if the caught exception type is thrown within the try block.
+					- <span style="color: cadetblue">finally</span> - A finally block is code that will be executed regardless of if an exception is thrown or not within the try block.
+					
+					---
+					
+					## Handling Exceptions (cont)
+					
+					#### Code Example
+					
+					```c#
+					try
+					{
+						var fileText = System.IO.File.ReadAllText(@"exampleFile.txt");
+					}
+					catch(Exception e)
+					{
+						Console.WriteLine("There was an error with reading the file! Oh no!");
+					}
+					```
+					
+					---
+					
+					## Handling Exceptions (cont)
+					
+					#### Code Example of Cascading Exception Handling
+					
+					```c#
+					string filePath = "exampleFile.txt";
+					try
+					{
+						var fileText = System.IO.File.ReadAllText(filePath);
+					}
+					catch(FileNotFoundException e)
+					{
+						Console.WriteLine($"Unable to find file at `{filePath}`");
+					}
+					catch(Exception e)
+					{
+						Console.WriteLine("There was an error with reading the file! Oh no!");
+					}
+					```
+					
+					---
+					
+					## Exceptions - Concept Check!
+					
+					1) What is the primary use case for using exceptions?
+					2) When might I choose to utilize cascading exception handling?
+					3) Why is it important to understand the the possible exceptions in outside code that we're utilizing, and to make clear in what ways our code can throw exceptions?
+					
+					---
+					## Visual Studio Tips and Tricks
+					
+					For this part of the lecture I'll be walking you through some of my common productivity tools, debugging practices, and IDE features that allow me to work quickly in visual studio.
+					
+					---
+					## Visual Studio Tips and Tricks (cont)
+					
+					#### Features
+					
+					- <span style="color: cadetblue">Task List</span> - View -> Task list. Brings up a list of areas of the code with marked "TODO" comments.
+					- <span style="color: cadetblue">Auto Formatter</span> - Highlight a part of your code and press: (ctrl + k, ctrl + f). Your highlighted code will be formatted.
+					- <span style="color: cadetblue">Go To All</span> - (ctrl + t) - Quickly search your solution for files, classes, methods given a certain search word.
+					- <span style="color: cadetblue">Find and Replace</span> - (ctrl + shift + f) - Search for all instances of a string within your project, and optionally replace them with another string.
+					
+					---
+					
+					## Visual Studio Tips and Tricks (cont)
+					
+					#### Visual Studio Installer / Version Control Tools
+					
+					- Enabling <span style="color: cadetblue">GitHub Extentions</span>, and <span style="color: cadetblue">git for windows</span> extension.
+					- Walk through team explorer, viewing blame / history of a file, looking at commit history of a file.
+					- Github Desktop - External app which allows for you to issue common git commands, view commit history, and push / pull changes from github and your local computer.
+					
+					---
+					
+					## Visual Studio Tips and Tricks (cont)
+					
+					#### NuGet Packages
+					
+					- Used for referencing external code libraries to use within your project.
+					- Also manages different versions of those external libraries. 
+					
+					<div class="fragment" style="color: cadetblue;">
+						Demo
+					</div>
+					
+					---
+					
+					## Visual Studio Tips and Tricks (cont)
+					
+					#### Useful links for further exploring
+					
+					- [Microsoft Docs - Productivity Guide](https://docs.microsoft.com/en-us/visualstudio/ide/productivity-features?view=vs-2019)
+					- [Microsoft Docs - Keyboard Shortcuts](https://docs.microsoft.com/en-us/visualstudio/ide/default-keyboard-shortcuts-in-visual-studio?view=vs-2019#bkmk_html-editor-context-specific-shortcuts)
+					
+					---
+					
+					## Exercises
+					
+					[Link](https://education.launchcode.org/csharp-web-development/chapters/exceptions/exercises.html)
+					
+					---
+					## Questions
+					
+					---
+					# Studio
+					[Link](https://education.launchcode.org/csharp-web-development/chapters/vstools/studio.html)
+				  </textarea>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/zoom/zoom.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/search/search.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>
