@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>MVC - Views</title>
+
+		<meta name="description" content="">
+		<meta name="author" content="Ryan Shaw">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/league.css" id="theme">
+		<link rel="stylesheet" href="styles/ryans-styles.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="../css/override.css">
+
+	</head>
+	<body>
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-markdown>
+				  <textarea data-template>
+					## MVC - Views</br>
+					
+					#### Key topics for tonight 
+					<div style="text-align: left;">
+						- Recap on responsibilities of the view </br>
+						- Razor views </br>
+					</div>
+					
+					---
+					
+					## Views
+					
+					Views are responsible for data presentation and user interaction within an ASP.NET Core MVC application.
+					
+					---
+					
+					## Views (cont)
+					
+					View files are stored within a `Views` folder which is found at the root of the application. Within that folder are sub-folders representing the related controllers within the application.
+					
+					<img style="width: 30%;" src="images/10-mvc-views/views_solution_explorer.png" />
+					
+					---
+					
+					## Views (cont)
+					
+					#### Perks
+					
+					- Minimal <a href="https://www.google.com/search?q=boilerplate+code&rlz=1C1CHBF_enUS917US917&oq=boilerplate&aqs=chrome.2.69i57j0i433i512j0i67i433j0i512l7.3497j0j7&sourceid=chrome&ie=UTF-8">boilerplate code</a> needed to be maintained by the developer. 
+					- Gives a convenient directory structure for organizing your views via the controllers that they are related to.
+					- `cshtml` files allow for additional programmatic functionality to be added to your normal html markup.
+					
+					
+					---
+					
+					## Views (cont)
+					
+					#### Syntax of a view
+					
+					```cshtml
+					@{
+						ViewData["Title"] = "Index";
+					}
+
+					<h2>Index</h2>
+
+					<p>Hello from our View Template!</p>
+					```
+					
+					---
+					
+					## Views (cont)
+					
+					#### Accessing your view
+					
+					- <span style="color: cadetblue">View Discovery</span> - The process of determining which view a controller returns based on naming conventions, or explicitly named view files when provided.
+					- <span style="color: cadetblue">ViewData</span> - A <span style="color: cadetblue">weakly typed</span> dictionary for storing values and referencing them between the view and controller.
+					
+					---
+					
+					## Views (cont)
+					
+					#### Passing ViewData to the view
+					
+					```c#
+					public IActionResult Index()
+					{
+						ViewData["Message"] = "I am a message! You can see me on the view!";
+
+						return View();
+					}
+					```
+					
+					```cshtml
+					@{
+						ViewData["Title"] = "Index";
+					}
+
+					<h2>Index</h2>
+
+					<p>@ViewData["Message"]</p>
+					```
+					
+					---
+					
+					## Views (cont)
+					
+					#### Passing strongly typed data
+					
+					It is common to have what is called a <span style="color: cadetblue">View Model</span> to represent a class that is meant to be utilized by the view for a specific page. This allows you the ability to pass data to the view without having to cast it on the other side.
+					
+					---
+					
+					## Views - Passing A Model
+					
+					#### Controller
+					
+					```c#
+					public IActionResult Index()
+					{
+						return View(new PersonViewModel() { Name = "Ryan", Age = 27 });
+					}
+
+					public class PersonViewModel
+					{
+						public string Name { get; set; }
+						public int Age { get; set; }
+					}
+					```
+					
+					---
+					
+					## ViewBag - Passing A Model (cont)
+					
+					#### View
+					
+					```cshtml
+					@model LaunchCodeMVCApp.Controllers.HelloWorldController.PersonViewModel
+
+					@{
+						ViewData["Title"] = "Index";
+					}
+
+					<h2>Hello @Model.Name</h2>
+
+					<p>You're @Model.Age years old! Wowzer!</p>
+					```
+					
+					---
+					
+					## Views (cont)
+					
+					#### Explore around the template project
+					- _ViewStart.cshtml
+					- _Layout.cshtml
+					
+					---
+					
+					## Razor Control flow 
+					
+					- Our Razor pages can even conditionally render things utilizing conditionals, and iterations through datasets.
+					
+					---
+					
+					## Razor Control flow - If statements
+					
+					```cshtml
+					@model LaunchCodeMVCApp.Controllers.HelloWorldController.PersonViewModel
+
+					@{
+						ViewData["Title"] = "Index";
+					}
+
+					<h2>Hello @Model.Name</h2>
+
+					@if (Model.Age > 40)
+					{
+						<p>Oh no, you're over the hill!</p>
+					}
+					else
+					{
+						<p>Mortality will never catch up to you!</p>
+					}
+					```
+					
+					---
+					
+					## Razor Control flow - Loops
+					
+					#### Controller code
+					
+					```c#
+					public IActionResult Index()
+					{
+						var people = new List<Person>() { new Person() { Name = "Ryan", Age = 27 }, new Person() { Name = "Joe", Age = 78 } };
+
+						return View(new PersonViewModel() { People = people });
+					}
+
+					public class PersonViewModel
+					{
+						public List<Person> People { get; set; }
+					}
+
+					public class Person
+					{
+						public string Name { get; set; }
+						public int Age { get; set; }
+					}
+					```
+					
+					---
+					
+					## Razor Control flow - Loops
+					
+					#### View code
+					
+					```cshtml
+					@for (var i = 0; i < Model.People.Count(); i++)
+					{
+						var person = Model.People[i];
+						<p>Name: @person.Name</p>
+						<p>Age: @person.Age</p>
+					}
+					```
+					
+					<a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0#looping-for-foreach-while-and-do-while">Microsoft Docs</a>
+					
+					---
+					
+					## Views - Concept Check!
+					
+					1) What are some of the key differences between `cshtml` and `html`?
+					2) What are some of the drawbacks from using the ViewData dictionary?
+					3) How would I go about preventing code duplication in my `cshtml` files?
+					
+					---
+					
+					## Visual Studio Tips and Tricks (cont)
+					
+					#### Useful links for further exploring
+					
+					- [Microsoft Docs - Razor Syntax](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0)
+					- [Microsoft Docs - MVC Views](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/overview?view=aspnetcore-5.0)
+					
+					---
+					
+					## Exercises
+					
+					[Link](https://education.launchcode.org/csharp-web-development/chapters/razor-views/exercises.html)
+					
+					---
+					## Questions
+					
+					---
+					# Studio
+					[Link](https://education.launchcode.org/csharp-web-development/chapters/razor-views/studio.html)
+				  </textarea>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/zoom/zoom.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/search/search.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>
