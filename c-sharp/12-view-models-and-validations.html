@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>View Models and Validations</title>
+
+		<meta name="description" content="">
+		<meta name="author" content="Ryan Shaw">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/league.css" id="theme">
+		<link rel="stylesheet" href="styles/ryans-styles.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="../css/override.css">
+
+	</head>
+	<body>
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-markdown>
+				  <textarea data-template>
+					## View Models and Validations</br>
+					
+					#### Key topics for tonight 
+					<div style="text-align: left;">
+						- View Models refresher </br>
+						- Validations of View Models </br>
+						- Enumerations
+					</div>
+					
+					---
+					
+					## View Models
+					
+					Represents data as it is rendered in the view.
+					
+					---
+					
+					## View Models (cont)
+					
+					<div style="text-align: left;">
+					
+					Our ViewModels are almost always found within a folder titled `Models` or `ViewModels` within a MVC Web application. As these classes are strictly meant to assist in presenting data, they should always be contained within the Web Application.
+					</div>
+	
+					---
+					
+					## View Models (cont)
+					
+					#### Best practices
+					- Shouldn't contain excess logic that isn't directly related to the needs of the view.
+					- When handling form submissions, it can be beneficial to create a ViewModels to represent the data sent via the form.
+					- It can also be beneficial to create a ViewModel to represent the data being sent from the controller to the view at the page level.
+					
+					---
+					
+					## View Models (cont)
+					
+					#### Code Example
+					
+					```cs
+					public class PersonViewModel {
+						public string FirstName { get; set; }
+						public string LastName { get; set; }
+						public int Age { get; set; }
+						
+						public string FullName => $"{FirstName} {LastName}";
+					}
+					```
+					
+					<div class="fragment" style="color: cadetblue;">
+						Demo
+					</div>
+					
+					---
+					
+					## Validations
+					
+					#### Why are validations important?
+					
+					- User Interface design is just as much about what you prevent the user from doing as what you enable them to do. 
+						- This priniciple extends into the data that we allow the user to submit.
+						- We can prevent the data via <span style="color: cadetblue">server-side validations</span>, and through <span style="color: cadetblue">client-side validations</span>.
+					
+					---
+					
+					## Client-side Validations
+					
+					#### Things to note
+					
+					- Not a replacement for Server-Side validation.
+						- Malicious actors can adjust their client-side code to still send incorrect data!
+					- Within common use cases it can give users more immediate feedback on the expectations of a field.
+					
+					---
+					
+					## Client-Side Validations
+					
+					#### Code Example
+					
+					<div class="fragment">
+					
+					[Demo](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation#validating_against_a_regular_expression)
+					</div>
+					
+					<div class="fragment">
+					
+					[link to website to help with regex!](https://regex101.com/)
+					</div>
+					
+					---
+					
+					## Server-Side Validations
+					
+					#### Things to note
+					
+					- The Server Side code is 100% in our control, and is basically everything that is handled from the point of making it to the `Controller` on.
+					- This means we can safely make our validations on the server, and there is no room for malicious actors to harm our system after after the fact.
+					- This is considered a [defensive coding practice](https://medium.com/swlh/2-defensive-coding-techniques-you-should-use-today-4225cacc1c29)
+					
+					---
+					
+					## Server-Side Validations
+					
+					#### Code Example
+					
+					<div class="fragment" style="color: cadetblue;">
+						eShop Demo
+					</div>
+					
+					</br>
+					</br>
+					</br>
+					
+					<div class="fragment">
+						- Compare ModelState.IsValid vs !ModelState.IsValid approach
+					</div>
+					
+					---
+					
+					## View Models / Validation - Concept Check!
+					
+					1) What is the difference between a View Model and the Model?
+					2) Why might I want to use client side validation in addition to server side validation?
+					2) What strengths does server side validation have over client side validation?
+					
+					---
+					
+					## Enums
+					
+					#### What are Enums?
+					
+					- An enumeration type (or enum type) is a value type defined by a set of named constants of the underlying integral numeric type.
+					- Enums are used when you want to represent a set of potential options along with associated integer values.
+					
+					---
+					
+					## Enums
+					
+					#### Code Example
+					
+					```c#
+					/// <summary>
+					/// Suit of a playing card
+					/// </summary>
+					public enum SuitKind
+					{
+						Clubs = 0,
+						Diamonds = 1,
+						Hearts = 2,
+						Spades = 3
+					}
+					```
+					
+					---
+					
+					## Enums with bit flags
+					
+					#### Use case
+					
+					When you have a set of potential options that can contain zero, one, or many of those options.
+					
+					---
+					
+					## Enums with bit flags - Code
+					
+					#### Flagged Enum
+					
+					```c#
+					[Flags]
+					public enum Days
+					{
+						None      = 0b_0000_0000,  // 0
+						Monday    = 0b_0000_0001,  // 1
+						Tuesday   = 0b_0000_0010,  // 2
+						Wednesday = 0b_0000_0100,  // 4
+						Thursday  = 0b_0000_1000,  // 8
+						Friday    = 0b_0001_0000,  // 16
+						Saturday  = 0b_0010_0000,  // 32
+						Sunday    = 0b_0100_0000,  // 64
+						Weekend   = Saturday | Sunday
+					}
+					```
+					
+					---
+					
+					## Enums with bit flags - Code (cont)
+					
+					#### Console App Demo
+					
+					```c#
+					public static void Main()
+					{
+						Days meetingDays = Days.Monday | Days.Wednesday | Days.Friday;
+						Console.WriteLine(meetingDays);
+						// Output:
+						// Monday, Wednesday, Friday
+
+						Days workingFromHomeDays = Days.Thursday | Days.Friday;
+						Console.WriteLine($"Join a meeting by phone on {meetingDays & workingFromHomeDays}");
+						// Output:
+						// Join a meeting by phone on Friday
+
+						bool isMeetingOnTuesday = (meetingDays & Days.Tuesday) == Days.Tuesday;
+						Console.WriteLine($"Is there a meeting on Tuesday: {isMeetingOnTuesday}");
+						// Output:
+						// Is there a meeting on Tuesday: False
+
+						var a = (Days)37;
+						Console.WriteLine(a);
+						// Output:
+						// Monday, Wednesday, Saturday
+					}
+					```
+					
+	
+					---
+					
+					## Enums - Concept Check!
+					
+					1) Can you think of a good example of when you might use an Enum in your code?
+					2) What does enabling enum flags allow me to do with that particular enum?
+					
+					---
+					
+					## Exercises
+					
+					[Link](https://education.launchcode.org/csharp-web-development/chapters/aspdotnet-model-classes/exercises.html)
+					
+					---
+					## Questions
+					
+					---
+					# Studio
+					[Link](https://education.launchcode.org/csharp-web-development/chapters/aspdotnet-model-classes/studio.html)
+				  </textarea>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/zoom/zoom.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/search/search.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>
