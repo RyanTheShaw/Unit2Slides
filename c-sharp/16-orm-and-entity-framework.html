@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>ORM and Entity Framework</title>
+
+		<meta name="description" content="">
+		<meta name="author" content="Ryan Shaw">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/league.css" id="theme">
+		<link rel="stylesheet" href="styles/ryans-styles.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="../css/override.css">
+
+	</head>
+	<body>
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-markdown>
+				  <textarea data-template>
+					## ORM and Entity Framework</br>
+					
+					#### Key topics for tonight 
+					<div style="text-align: left;">
+						- What is Object-Relational Mapping? </br>
+						- Intro to using Entity Framework </br>
+						- Entity Framework in MVC
+					</div>
+					
+					---
+					
+					## Object-Relational Mapping
+					
+					#### Definition
+					
+					Object-Relational Mapping is a technique for accessing and manipulating data stored in a database via an object-oriented programming language (such as C#!)
+					
+					---
+					
+					## Object-Relational Mapping (cont)
+					
+					#### Why it's important?
+					
+					- Allows us to make <span style="color: cadetblue">CRUD</span> operations against our database easily from our application code.
+					- Assists us in defining <span style="color: cadetblue">one</span> dedicated entry point into our database.
+					- ORM Libraries give us many functions that assist in creating good data access patterns.
+					- Allows us to treat database entities as c# classes, instead of executing sql statements as strings.
+					
+					---
+					
+					## Object-Relational Mapping (cont)
+					
+					#### Comparing SQL Query vs. ORM
+					
+					```MySql
+					# Fetch data from database via sql query
+					SELECT * FROM People WHERE FirstName = 'Ryan';
+					```
+					
+					vs
+					
+					```C#
+					// Fetching data from database via C# / ORM
+					MySqlDbContext context = new MySqlDbContext();
+					context.People.Where(p => p.FirstName == "Ryan");
+					```
+					
+					---
+					
+					## Object-Relational Mapping (cont)
+					
+					#### Pros of ORM
+					
+					- Building logic around strings is <span style="color: red">bad</span> (in almost any context).
+					- By having our database interactions driven by C# objects, we gain <span style="color: cadetblue">compile time</span> assurances, much like the rest of our C# code!
+					- Natively protects against <span style="color: red">SQL Injection</span> attacks!
+					
+					---
+					
+					## Object-Relational Mapping (cont)
+					
+					#### Console App Demo
+					
+					<span style="color: cadetblue">demo</span>
+					
+					---
+					
+					## Entity Framework
+					
+					#### What is it?
+					
+					Entity Framework is one of the most common ORM libraries within the .NET ecosystem. It offers a number of different ways to manage your long-term data access via C#. 
+					
+					---
+					
+					## Entity Framework (cont)
+					
+					#### Key Concepts
+					
+					- Supports a number of different relational databases, so you can still use entity framework with many different types of sql (Sql, MySql, Sqlite, PostgreSQL, etc).
+					- Provides us various base classes that we need to implement to properly use the framework.
+					- You'll need to install the required NuGet packages for whichever Sql instance you're attempting to connect to.
+
+					---
+					
+					## Entity Framework (cont)
+					
+					#### Database First vs Code First
+					
+					- <span style="color: cyan">Database First</span> - Used when connecting to an already existing database. Adjustments to the schema are managed outside the code.
+					- <span style="color: cyan">Code First</span> (Migrations) - Used when we want to make adjustments to the schema through changes in our C# code. 
+					
+					<div class="fragment">
+					
+					For tonight's class we will be primarly looking at Database First, but we will look at the Code First approach in more detail in part 2's lecture.
+					</div>
+					
+					---
+					
+					## Entity Framework (cont)
+					
+					#### Important ef classes / methods
+					
+					<span style="font-size: 2rem;">
+					
+					- <span style="color: cyan">DbContext</span> - Implementations of this class defines a connection to a database, and is the entry point for the actions that we want to take against it.
+					- <span style="color: cyan">DbSet</span> - Defines a table within a database, and is the entry point to performing CRUD operations against that table.
+					- <span style="color: cyan">DbContext.OnConfiguring()</span> - A <span style="color: cadetblue">virtual</span> method which allows for you to define how to connect to your database (such as what the <span style="color: cadetblue">connection string</span> should be).
+					- <span style="color: cyan">DbContext.SaveChangesAsync()</span> - This method must be called to sync the changes made in the DbContext to the real database. 
+					
+					</span>
+					
+					---
+					
+					## Entity Framework (cont)
+					
+					#### Return to Console App demo
+					
+					- Walk through DbContext, DbSet, and OnConfiguring()
+					
+					---
+					
+					## Entity Framework (cont)
+					
+					#### Adding a record
+					
+					```C#
+					public static void AddPerson(MySqlDbContext context)
+					{
+						var person = new Person()
+						{
+							FirstName = "Jackie",
+							LastName = "Chan"
+						};
+
+						context.People.Add(person);
+						context.SaveChangesAsync();
+					}
+					```
+					
+					---
+					
+					## Entity Framework (cont)
+					
+					#### Updating a record
+					
+					```C#
+					public static void UpdatePerson(MySqlDbContext context, int Id)
+					{
+						var person = context.People.Find(Id);
+
+						person.LastName = "LOL U HAVE A NEW LAST NAME";
+
+						context.People.Update(person);
+						context.SaveChangesAsync();
+					}
+					```
+					
+					---
+					
+					## Entity Framework (cont)
+					
+					#### Deleting a record
+					
+					```C#
+					public static void DeletePerson(MySqlDbContext context, int Id)
+					{
+						var person = context.People.Find(Id);
+						
+						context.People.Remove(person);
+						context.SaveChangesAsync();
+					}
+					```
+					
+					---
+					
+					## Entity Framework (cont)
+					
+					#### Setup witin an MVC Project
+					
+					- Connection string information can be stored in our appsettings (or other IConfiguration file sources). This takes the place of the `OnConfiguring()` method override as it was used in the console app.
+					- The Startup.cs file will allow you to bind your DbContext via <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-6.0">dependency injection</a>.
+					
+					---
+					
+					## Entity Framework (cont)
+					
+					#### Revisit eShop MVC project
+					
+					[demo (with link to project)](https://github.com/dotnet-architecture/eShopOnWeb)
+					
+					---
+					
+					## Entity Framework (cont)
+					
+					#### Misc things to note / possible gotchas
+					
+					<span style="font-size: 2rem;">
+					
+					- If you're working with docker containers, your server value in the connection string will likely be different.
+					- Tonight we looked at <span style="color: cadetblue">Database First</span> as it is much more simple to start with, but there are many pros to using <span style="color: cadetblue">Code First</span> as we'll discuss next class.
+					- Entity Framework uses [conventions](https://www.learnentityframeworkcore.com/conventions) when mapping C# classes / properties to the database. If your names don't follow the conventions, you might have issues pulling data!
+					
+					</span>
+					
+					---
+					
+					## Entity Framework (cont)
+					
+					#### Different patterns used
+					
+					- [unit of work / repository patterns](https://gunnarpeipman.com/ef-core-repository-unit-of-work/)
+					- [ef core github - basic usage](https://github.com/dotnet/efcore#basic-usage)
+				
+					---
+					
+					## Entity Framework - Concept Check!
+					
+					<span style="font-size: 2rem;">
+					
+					1) What are some of the perks of using an ORM?
+					2) What is a connection string? What infomation is stored within a connection string?
+					3) Name two ways I can connect my C# DbContext with an actual database.
+					4) How could I find a people in my database with first name "Ryan", and update their last name to "BLARGH"?
+					
+					</span>
+					
+					---
+					
+					## Reference Material
+					
+					- [Microsoft docs tutorial](https://docs.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli)
+					
+					- [ef core tutorial site](https://www.entityframeworktutorial.net/efcore/entity-framework-core.aspx)
+					
+					---
+					
+					## Exercises
+					
+					[Link](https://education.launchcode.org/csharp-web-development/chapters/orm-intro/exercises.html)
+				
+					
+					---
+					## Questions
+					
+					---
+					# Studio
+					[Link](https://education.launchcode.org/csharp-web-development/chapters/orm-intro/studio.html)
+				  </textarea>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/zoom/zoom.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/search/search.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>
