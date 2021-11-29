@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>ORM and Entity Framework - Part 2</title>
+
+		<meta name="description" content="">
+		<meta name="author" content="Ryan Shaw">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/league.css" id="theme">
+		<link rel="stylesheet" href="styles/ryans-styles.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="../css/override.css">
+
+	</head>
+	<body>
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-markdown>
+				  <textarea data-template>
+					## ORM and Entity Framework - Part 2</br>
+					
+					#### Key topics for tonight 
+					<div style="text-align: left;">
+						- 5 minute recap of part one </br>
+						- Code-First Migrations Overview </br>
+						- Recreating a Code-First Migrations Project </br>
+						- EF Core Conventions for one-to-one / one-to-many relationships
+					</div>
+					
+					---
+					
+					## 5 Minute recap
+					
+					- What is Entity Framework?
+					- What's the difference between Database first / Code first?
+					
+					---
+					
+					## Code-First Migrations
+					
+					#### What is it?
+					
+					Code-First Migrations allow for developers to make <span style="color: cadetblue">schema</span> level changes to their database driven off of your C# entities.
+					
+					---
+					
+					## Code-First Migrations (cont)
+					
+					#### Key things to note
+					
+					<span style="font-size: 2rem;">
+					
+					- This is the recommended path to take for new web applications which require a new database.
+					- This approach allows developers to avoid responsibility overload with manually administrating the database outside of the code.
+					- Greatly simplifies the complex issues around tracking different versions of the database along with different versions of your application.
+					
+					</span>
+					
+					---
+					
+					## Code-First Migrations (cont)
+					
+					#### Additional Vocab
+					
+					<span style="font-size: 2rem;">
+					
+					- <span style="color: cadetblue">Package Manager Console</span> - A view within visual studio (found via view tab -> other windows -> Package Manager Console) which allows for us to run migrations commands for the given project.
+					- <span style="color: cadetblue">Migrations Folder</span> - An auto-generated folder which constructs C# classes which represent states of the database through time.
+					- <span style="color: cadetblue">DbContext.Database.Migrate()</span> - Method you can call from within your application to run migrations against the database that your <span style="color: cadetblue">DbContext</span> is connected to.
+					
+					</span>
+					
+					---
+					
+					## Code-First Migrations (cont)
+					
+					#### Prepared code project
+					
+					[Demo](https://github.com/RyanTheShaw/CodeFirstEfCoreExample)
+					
+					
+					---
+					
+					## Recreate a new project
+					
+					#### Step One - Create a new MVC Web application
+					
+					- Create a new web app
+						- make sure to include a .gitignore file!
+					- Create a separate project for data access
+					
+					---
+					
+					## Recreate a new project
+					
+					#### Step Two - Install needed nuget packages / references
+					
+					- Web app needs the following:
+						- Microsoft.EntityFrameworkCore.Design
+						- Data Access Project reference
+					- Data Access project needs the following:
+						- Microsoft.EntityFrameworkCore
+						- Microsoft.EntityFrameworkCore.Design
+						- Microsoft.EntityFrameworkCore.Tools
+						- Pomelo.EntityFrameworkCore.MySql
+						
+					---
+					
+					## Recreate a new project
+					
+					#### Step Three - Setup DbContext with base values
+					
+					- Create DbContext implementation
+					- Add Connection string to appsettings.json / reference in the startup file
+					
+					---
+					
+					## Recreate a new project
+					
+					#### Step Four - Package Manager Console Commands
+					
+					- Run `add-migration InitialMigration`
+					- Run `update-database`
+					
+					---
+					
+					## Recreate a new project
+					
+					#### Check point
+					
+					- We should now be able to see a newly created database.
+					- Let's attempt to add some one-to-one and one-to-many relationships to this database.
+					
+					---
+					
+					## EF Core Conventions
+					
+					#### Implement conventions in our created project
+					
+					[Convention Guide](https://www.entityframeworktutorial.net/efcore/one-to-many-conventions-entity-framework-core.aspx)
+					
+					---
+					
+					## Recreate a new project
+					
+					#### Step Five - Add new DbSets
+					
+					<span style="font-size: 2rem;">
+					
+					- Add examples from the previous tutorial site.
+					- Once the DbSets are added, Run `add-migration {DescriptiveName}` via the Package Manager Console.
+						- From here, we can run `update-database` to have these changes be reflected in the database, or call migrations in the code!
+					
+					</span>
+					
+					---
+					
+					## Recreate a new project
+					
+					#### Step Six - Add Migrations
+					
+					- Add `context.Database.Migrate()` to startup.cs file.
+				
+					---
+					
+					## Entity Framework Migrations - Concept Check!
+					
+					<span style="font-size: 2rem;">
+					
+					1) When might I use Code First Migrations over the Database First approach?
+					2) What is the difference between `update-database` and `DbContext.Database.Migrate()`?
+					3) Give an example of how I can establish relationships between my entities through code.
+					
+					</span>
+					
+					---
+					
+					## Reference Material
+					
+					- [Ryan's ef core - code first migrations example](https://github.com/RyanTheShaw/CodeFirstEfCoreExample)
+					
+					- [ef core tutorial - conventions](https://www.entityframeworktutorial.net/efcore/one-to-many-conventions-entity-framework-core.aspx)
+					
+					---
+					
+					## Exercises
+					
+					[Link](https://education.launchcode.org/csharp-web-development/chapters/orm-relationships/exercises.html)
+				
+					
+					---
+					## Questions
+					
+					---
+					# Studio
+					[Link](https://education.launchcode.org/csharp-web-development/chapters/orm-intro/studio.html)
+				  </textarea>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/zoom/zoom.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/search/search.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>
