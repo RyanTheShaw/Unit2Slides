@@ -1,0 +1,11 @@
+h4 {
+    color: cyan !important;
+}
+
+.reveal pre {
+    width: 100% !important;
+}
+
+code.markdown, code.hljs {
+	white-space: pre-wrap !important;
+}
